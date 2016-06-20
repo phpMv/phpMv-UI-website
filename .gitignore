@@ -48,3 +48,6 @@ Temporary Items
 .settings/
 .project
 .buildpath
+app/cache
+vendor/
+public/doc/

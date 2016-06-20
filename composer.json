@@ -1,0 +1,5 @@
+{
+    "require": {
+        "jcheron/phalcon-jquery": "~v1.0.0"
+    }
+}
