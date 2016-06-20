@@ -1,5 +1,5 @@
 {
     "require": {
-        "jcheron/phalcon-jquery": "~v1.0.0"
+        "phpMv/phpMv-UI": "dev-master"
     }
 }
