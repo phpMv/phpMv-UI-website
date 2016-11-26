@@ -239,11 +239,18 @@ class SemanticGui extends BaseGUI {
 		$img=$this->controller->url->get($currentFramework->getImage());
 		$label1->addEmphasisImage($img);
 		$label1->asRibbon(Direction::LEFT);
-		//$label1->setPointing(Direction::BELOW);
-		//$label2=$semantic->htmlLabel("","[/".$currentFramework->getName()."]");
-		//$label2->addEmphasisImage($img);
-		//$label2->setPointing(Direction::UP);
 		$subject= preg_replace('#('.preg_quote('<').$currentFramework->getId().preg_quote('>').')#', "<div class='ui segment'>".$label1->compile(), $subject);
 		return preg_replace('#('.preg_quote('</').$currentFramework->getId().preg_quote('>').')#', "</div>", $subject);
+	}
+
+	public function searchPanel($id,$title){
+		$semantic=$this->controller->jquery->semantic();
+		return $semantic->htmlSegment($id,[new HtmlHeader("header-".$id,3,$title)]);
+	}
+
+	public function addSearchPanelCount($panel,$count=NULL){
+		if(!isset($count))
+			$count=\sizeof($panel->getContent())-1;
+		$panel->getContent()[0]->addLabel($count)->setColor("blue");
 	}
 }

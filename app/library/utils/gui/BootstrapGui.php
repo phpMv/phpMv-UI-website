@@ -12,6 +12,7 @@ use Ajax\bootstrap\html\HtmlTabs;
 use Ajax\bootstrap\html\content\HtmlDropdownItem;
 use Ajax\bootstrap\html\content\HtmlTabItem;
 use Ajax\bootstrap\html\HtmlAlert;
+use Ajax\bootstrap\html\HtmlBadge;
 
 class BootstrapGui extends BaseGUI {
 
@@ -162,5 +163,17 @@ class BootstrapGui extends BaseGUI {
 	public function insertCurrentFrameworkTag($subject,$currentFramework){
 
 	}
+
+	public function searchPanel($id,$title){
+		$jquery=$this->controller->jquery;
+		return $jquery->bootstrap()->htmlPanel($id, "", $title);
+	}
+
+	public function addSearchPanelCount($panel,$count=NULL){
+		if(!isset($count))
+			$count=\sizeof($panel->getContent())-1;
+		$panel->getHeader()->addBadge($count);
+	}
+
 
 }

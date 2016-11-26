@@ -9,6 +9,8 @@
 {{stylesheet_link("https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css")}}
 {{stylesheet_link("css/styles.css")}}
 {{stylesheet_link("https://cdnjs.cloudflare.com/ajax/libs/prism/1.4.1/themes/prism-okaidia.min.css")}}
+	{{javascript_include("https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js")}}
+
 </head>
 <body>
 	<header class="navbar navbar-static-top bs-docs-nav" id="top"
@@ -43,7 +45,6 @@
 		</div>
 	</div>
 	{{ q["back"] }}
-	{{javascript_include("https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js")}}
 	{{javascript_include("https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js")}}
 	{{ script_foot }} {{javascript_include("js/lib/prism.js")}}
 	{{javascript_include("js/lib/jquery.tablesort.min.js")}}

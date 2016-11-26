@@ -28,11 +28,11 @@ class IndexController extends ControllerBase {
 		$partial=false;
 		$hasScript=false;
 
-		if (isset($lang)) {
+		if (isset($lang) && $lang!=="no") {
 			$this->translateEngine->setLanguage($lang, $this->session);
 		}
 		if ($this->request->isAjax()) {
-			if (isset($lang)) {
+			if (isset($lang) && $lang!=no) {
 				$this->view->setRenderLevel(View::LEVEL_MAIN_LAYOUT);
 				$this->forwardTo();
 			} else {
@@ -56,9 +56,9 @@ class IndexController extends ControllerBase {
 		$expr[]=$this->translateEngine->translate(1, "index.install", "<p>Or</p><h3 class='ui header'>Install with Composer</h3><p>Create the file composer.json</p>");
 		$expr[]=$this->translateEngine->translate(2, "index.install", "Enter in the console");
 
-		$bt=$this->jquery->semantic()->htmlButton("bt-download", $expr[2])->asLink("https://github.com/jcheron/phalcon-jquery/archive/v1.0.5.zip");
+		$bt=$this->jquery->semantic()->htmlButton("bt-download", $expr[2])->asLink("https://github.com/phpMv/phpMv-UI/archive/2.0.zip");
 		$bt->addIcon("download");
-		$bt->addLabel("Phalcon-jQuery Azhar v1.0.5")->asLink("https://github.com/jcheron/phalcon-jquery/archive/v1.0.5.zip")->setPointing("left");
+		$bt->addLabel("Phpmv-UI Adhika v2.0")->asLink("https://github.com/phpMv/phpMv-UI/archive/2.0.zip")->setPointing("left");
 
 		$this->jquery->compile($this->view);
 		$this->view->setVars(array ("expr" => $expr,"lang" => $this->translateEngine->getLanguage(),"hasScript" => $hasScript ));
@@ -158,8 +158,10 @@ class IndexController extends ControllerBase {
 		if ($this->session->get("framework") === "semantic") {
 			$this->jquery->exec("$('.ui.sticky').sticky('refresh');", true);
 		}
-		if ($param1 == "main")
-			$this->jquery->get("index/menu/" . $id, ".col-md-3");
+		if ($param1 == "main"){
+			$idM=$this->getMainDomaine($id)->getId();
+			$this->jquery->get("index/menu/" . $idM, ".col-md-3");
+		}
 		$this->jquery->getOnClick("#response a.menu", "index/content/", "#response");
 		if ($this->request->has("anchor")) {
 			$this->jquery->exec('if($("[name=\'' . $this->request->get("anchor") . '\']").offset()){$(document).scrollTop( $("[name=\'' . $this->request->get("anchor") . '\']").offset().top );}', true);
@@ -171,6 +173,13 @@ class IndexController extends ControllerBase {
 			$this->jquery->postOnClick("#btSearch", "Index/search", '{"text":$("#search").val()}', "#response");
 			$this->jquery->compile($this->view);
 		}
+	}
+
+	private function getMainDomaine($idDomaine){
+		$domaine=Domaine::findFirst($idDomaine);
+		if($domaine->getIdParent()==null)
+			return $domaine;
+		return $this->getMainDomaine($domaine->getIdParent());
 	}
 
 	public function menuAction($id) {
@@ -282,49 +291,70 @@ class IndexController extends ControllerBase {
 	private function _searchResults($text, $domaines, $rubriques, $exemples) {
 		$hasResults=false;
 		$this->view->disable();
-		$dom=$this->jquery->bootstrap()->htmlPanel("listDomaines", "", "Domaines (" . sizeof($domaines) . ")");
+		$isSemantic=$this->session->get("framework") === "semantic";
+		$dom=$this->gui->searchPanel("listDomaines", "Domaines");
 		if (sizeof($domaines) > 0) {
 			$hasResults=true;
 			foreach ( $domaines as $domaine ) {
-				$libelle=$this->translateEngine->translate($domaine->getId(), "domaine.libelle", $domaine->getLibelle());
-				$dom->addContent((new HtmlLink("dom-" . $domaine->getId(), "", $this->_highlight($libelle, $text)))->setClass("domaine"));
+				$domaineParent=$this->getMainDomaine($domaine->getId());
+				if(($domaineParent->getSemantic()==1)==$isSemantic){
+					$libelle=$this->translateEngine->translate($domaine->getId(), "domaine.libelle", $domaine->getLibelle());
+					$dom->addContent((new HtmlLink("dom-" . $domaine->getId(), "", $this->_highlight($libelle, $text)))->setClass("domaine"));
+				}
 			}
+			$this->gui->addSearchPanelCount($dom);
 			echo $dom;
 		}
 
-		$rub=$this->jquery->bootstrap()->htmlPanel("listRubriques", "", "Rubriques (" . sizeof($rubriques) . ")");
+		$rub=$this->gui->searchPanel("listRubriques", "Rubriques");
 		if (sizeof($rubriques) > 0) {
 			$hasResults=true;
 			foreach ( $rubriques as $rubrique ) {
-				$titre=$this->translateEngine->translate($rubrique->getId(), "rubrique.titre", $rubrique->getTitre());
-				$rub->addContent((new HtmlLink("rub-" . $rubrique->getDomaine()->getId(), "", $this->_highlight($titre, $text)))->setClass("rubrique")->setProperty("data-anchor", StrUtils::cleanAttr($rubrique->getTitre())));
+				$domaineParent=$this->getMainDomaine($rubrique->getIdDomaine());
+				if(($domaineParent->getSemantic()==1)==$isSemantic){
+					$titre=$this->translateEngine->translate($rubrique->getId(), "rubrique.titre", $rubrique->getTitre());
+					$rub->addContent((new HtmlLink("rub-" . $rubrique->getDomaine()->getId(), "", $this->_highlight($titre, $text)))->setClass("rubrique")->setProperty("data-anchor", StrUtils::cleanAttr($rubrique->getTitre())));
+				}
 			}
+			$this->gui->addSearchPanelCount($rub);
 			echo $rub;
 		}
 
-		$ex=$this->jquery->bootstrap()->htmlPanel("listExemples", "", "Exemples (" . sizeof($exemples) . ")");
+		$ex=$this->gui->searchPanel("listExemples", "Exemples");
+		$exCount=0;
 		if (sizeof($exemples) > 0) {
 			$rubrique="";
 			$domaine="";
+			$domaineOk=false;
 			$hasResults=true;
 			foreach ( $exemples as $exemple ) {
 				$newRubrique=$exemple->getRubrique();
+
 				if ($domaine != $newRubrique->getDomaine()) {
 					$domaine=$newRubrique->getDomaine();
-					$libelle=$this->translateEngine->translate($domaine->getId(), "domaine.libelle", $domaine->getLibelle());
-					$ex->addContent("<h2>" . $this->_highlight($libelle, $text) . "</h2><hr>");
+					$domaineParent=$this->getMainDomaine($domaine->getId());
+					$domaineOk=(($domaineParent->getSemantic()==1)==$isSemantic);
+					if($domaineOk){
+						$libelle=$this->translateEngine->translate($domaine->getId(), "domaine.libelle", $domaine->getLibelle());
+						$ex->addContent("<h2>" . $this->_highlight($libelle, $text) . "</h2><hr>");
+						//$exCount++;
+					}
 				}
-				if ($rubrique != $newRubrique) {
-					$rubrique=$newRubrique;
-					$titre=$this->translateEngine->translate($rubrique->getId(), "rubrique.titre", $rubrique->getTitre());
-					$ex->addContent("<h3>" . $this->_highlight($titre, $text) . "</h3>");
-				}
-				$titre=$this->translateEngine->translate($exemple->getId(), "exemple.titre", $exemple->getTitre());
-				$description=$this->translateEngine->translate($exemple->getId(), "exemple.description", $exemple->getDescription());
+				if($domaineOk){
+					if ($rubrique != $newRubrique) {
+						$rubrique=$newRubrique;
+						$titre=$this->translateEngine->translate($rubrique->getId(), "rubrique.titre", $rubrique->getTitre());
+						$ex->addContent("<h3>" . $this->_highlight($titre, $text) . "</h3>");
+					}
+					$titre=$this->translateEngine->translate($exemple->getId(), "exemple.titre", $exemple->getTitre());
+					$description=$this->translateEngine->translate($exemple->getId(), "exemple.description", $exemple->getDescription());
 
-				$ex->addContent((new HtmlLink("ex-" . $domaine->getId(), "", "<h4>" . $this->_highlight($titre, $text) . "</h4>"))->setClass("exemple")->setProperty("data-anchor", StrUtils::cleanAttr($titre)));
-				$ex->addContent("<div>" . $this->_highlight(strip_tags($description), $text) . "</div>");
+					$ex->addContent((new HtmlLink("ex-" . $domaine->getId(), "", "<h4>" . $this->_highlight($titre, $text) . "</h4>"))->setClass("exemple")->setProperty("data-anchor", StrUtils::cleanAttr($titre)));
+					$ex->addContent("<div>" . $this->_highlight(strip_tags($description), $text) . "</div>");
+					$exCount++;
+				}
 			}
+			$this->gui->addSearchPanelCount($ex,$exCount);
 			echo $ex;
 		}
 		if ($hasResults) {
@@ -356,6 +386,20 @@ class IndexController extends ControllerBase {
 			$this->indexAction();
 			$this->view->pick("index/index");
 		}
+	}
+
+	public function directAction($param1,$param2=""){
+ 		if ($param1 == "main") {
+ 			$id=$param2;
+ 		} else {
+ 			$id=$param1;
+ 		}
+ 		$id=$this->int($id);
+ 		$mDomaine=$this->getMainDomaine($id);
+ 		if($mDomaine->getSemantic()==1)
+ 			$this->dispatcher->forward(["controller"=>"index","action"=>"semantic","params"=>[$id]]);
+ 		else
+ 			$this->dispatcher->forward(["controller"=>"index","action"=>"bootstrap","params"=>[$id]]);
 	}
 }
 

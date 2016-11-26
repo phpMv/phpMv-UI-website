@@ -1,7 +1,6 @@
 <?php
 
 use Ajax\semantic\html\base\HtmlSemDoubleElement;
-use Phalcon\Mvc\Url;
 class SemanticController extends \ControllerBase {
 	public function indexAction($lang=NULL){
 		$this->view->setMainView("index2");
@@ -9,7 +8,7 @@ class SemanticController extends \ControllerBase {
 			$this->translateEngine->setLanguage($lang,$this->session);
 		}
 		$expr=array();
-		$expr[]=$this->translateEngine->translate(1,"index.header","jQuery, jQuery UI and Twitter Bootstrap library for phalcon MVC Framework");
+		$expr[]=$this->translateEngine->translate(1,"index.header","jQuery, jQuery UI and Twitter Bootstrap library for MVC Frameworks");
 		$expr[]=$this->translateEngine->translate(2,"index.header","Phalcon-jQuery is a Phalcon® library for generating scripts or rich components (Bootstrap, jQueryUI) on server side.");
 		$expr[]=$this->translateEngine->translate(1,"index.download","Download");
 		$expr[]=$this->translateEngine->translate(1,"index.install","<p>Or</p><p class='lead'>Install with Composer</p><p>Create the file composer.json</p>");

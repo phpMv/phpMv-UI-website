@@ -31,4 +31,8 @@ abstract class BaseGUI {
 
 	public abstract function insertCurrentFrameworkTag($subject,$currentFramework);
 
+	public abstract function searchPanel($id,$title);
+
+	public abstract function addSearchPanelCount($panel,$count=NULL);
+
 }
