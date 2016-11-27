@@ -164,6 +164,7 @@ class SemanticGui extends BaseGUI {
 			return $e->getProperty("data-ajax");
 		});
 		$bc->setContentDivider("<i class='right angle icon divider'></i>");
+		$bc->setAbsolutePaths(true);
 		$bc->addIconAt("home", 0);
 		$bc->fromDatabaseObjects($domaines, function ($domaine) {
 			$lnk=new HtmlSemDoubleElement("bc-" . $domaine->getLibelle(), "a", "section");
