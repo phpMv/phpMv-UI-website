@@ -45,7 +45,9 @@
 	{{ q["back"] }}
 	{{javascript_include("https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")}}
 	{{javascript_include("https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js")}}
-	{{ script_foot }} {{javascript_include("js/lib/prism.js")}}
+	{{ script_foot }}
+	{{javascript_include("https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js")}}
+	{{javascript_include("https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/components/prism-php.min.js")}}
 	{{javascript_include("js/lib/jquery.tablesort.min.js")}}
 </body>
 </html>

@@ -6,10 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/x-icon" href="{{ url('public/img/favicon.ico') }}" />
-{{ stylesheet_link("css/bootstrap.min.css") }} {{
-stylesheet_link("css/styles.css") }} {{
-stylesheet_link("https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism-okaidia.min.css")
-}}
+{{ stylesheet_link("css/bootstrap.min.css") }} {{stylesheet_link("css/styles.css")}}
+{{stylesheet_link("https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism-okaidia.min.css")}}
 </head>
 <body>
 	<header class="navbar navbar-static-top bs-docs-nav" id="top"
@@ -43,10 +41,11 @@ stylesheet_link("https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism
 			</ul>
 		</div>
 	</div>
-	{{ q["back"] }} {{
-	javascript_include("https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
-	}} {{
-	javascript_include("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
-	}} {{ script_foot }} {{ javascript_include("js/lib/prism.js") }}
+	{{ q["back"] }}
+	{{javascript_include("https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")}}
+	{{javascript_include("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")}}
+	{{ script_foot }}
+	{{javascript_include("https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js")}}
+	{{javascript_include("https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/components/prism-php.min.js")}}
 </body>
 </html>

@@ -747,3 +747,11 @@ h6:hover .anchor .octicon-link {
 .ui.header>a{
 	color: black;
 }
+.ui.dropdown .menu{
+	font-size: 90% !important;
+}
+
+#ddfw{
+	padding: .4em 2.1em .4em 1em;
+	min-height: inherit;
+}
