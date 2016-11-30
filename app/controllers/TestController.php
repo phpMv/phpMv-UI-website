@@ -1,6 +1,5 @@
 <?php
 use Phalcon\Mvc\View;
-use Ajax\semantic\html\elements\html5\HtmlImg;
 class TestController extends ControllerBase {
 
 	public function indexAction() {
