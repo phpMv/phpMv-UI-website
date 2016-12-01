@@ -1,6 +1,6 @@
 <?php
 use Phalcon\Mvc\View;
-class SBreadController extends ControllerBase {
+class SbreadController extends ControllerBase {
 	public function afterExecuteRoute($dispatcher){
 		$bc=$this->jquery->semantic()->htmlBreadcrumb("bc10");
 		$bc->fromDispatcher($this->jquery,$dispatcher,0);
