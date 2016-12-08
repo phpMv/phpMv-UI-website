@@ -163,6 +163,7 @@ class IndexController extends ControllerBase {
 			$this->jquery->get("index/menu/" . $idM, ".col-md-3");
 		}
 		$this->jquery->getOnClick("#response a.menu", "index/content/", "#response");
+		$this->jquery->exec('$(document).prop("title","'.$do->getLibelle().' | phpMv-UI");',true);
 		if ($this->request->has("anchor")) {
 			$this->jquery->exec('if($("[name=\'' . $this->request->get("anchor") . '\']").offset()){$(document).scrollTop( $("[name=\'' . $this->request->get("anchor") . '\']").offset().top );}', true);
 		}
@@ -400,6 +401,24 @@ class IndexController extends ControllerBase {
  			$this->dispatcher->forward(["controller"=>"index","action"=>"semantic","params"=>[$id]]);
  		else
  			$this->dispatcher->forward(["controller"=>"index","action"=>"bootstrap","params"=>[$id]]);
+	}
+
+		$semantic=$this->jquery->semantic();
+		$div=$semantic->htmlDivider("");
+		echo $div->setIgnored();
+		$buttons=$semantic->htmlButtonGroups("bgShape1",["left long arrow","down long arrow","up long arrow","right long arrow"],true);
+		$buttons->addToProperty("class", "direction");
+		$buttons->setPropertyValues("data-animation", "flip");
+		$buttons->setPropertyValues("data-direction", ["left","up","down","right"]);
+		$buttons->setPropertyValues("title", ["flip left","flip up","flip down","flip right"]);
+		echo $buttons->compile($this->jquery);
+
+		$buttons=$semantic->htmlButtonGroups("bgShape2",["retweet","flipped retweet"],true);
+		$buttons->addToProperty("class", "direction");
+		$buttons->setPropertyValues("data-animation", "flip");
+		$buttons->setPropertyValues("data-direction", ["over","back"]);
+		$buttons->setPropertyValues("title", ["flip over","flip back"]);
+		echo $buttons->compile($this->jquery);
 	}
 }
 

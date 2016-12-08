@@ -22,12 +22,12 @@ class SemanticGui extends BaseGUI {
 
 	public function getAnchorsDropDown($anchors) {
 		$ddAnchors=new HtmlDropdown("anchors", $this->controller->getTranslateEngine()->translate(1, "index.menu", "Quick access"));
-		$ddAnchors->asButton()->setColor(Color::ORANGE);
 		foreach ( $anchors as $titre => $vAnchors ) {
 			$ddAnchors->addItem(HtmlDropdownItem::header($titre));
 			foreach ( $vAnchors as $kAnchor => $vAnchor ) {
 				$item=$ddAnchors->addItem($vAnchor, $vAnchor);
 				$item->setProperty("href", "#" . $kAnchor);
+				$item->setTagName("a");
 			}
 		}
 		if ($ddAnchors->count() > 8) {
@@ -36,6 +36,7 @@ class SemanticGui extends BaseGUI {
 			$ddAnchors->asSearch();
 			$ddAnchors->addIcon("search", true, true);
 		}
+		$ddAnchors->asButton()->setColor(Color::ORANGE);
 		return $ddAnchors;
 	}
 
@@ -253,5 +254,9 @@ class SemanticGui extends BaseGUI {
 		if(!isset($count))
 			$count=\sizeof($panel->getContent())-1;
 		$panel->getContent()[0]->addLabel($count)->setColor("blue");
+	}
+
+	public function shapeButtons(){
+		$this->controller->shapeButtons();
 	}
 }
