@@ -403,6 +403,7 @@ class IndexController extends ControllerBase {
  			$this->dispatcher->forward(["controller"=>"index","action"=>"bootstrap","params"=>[$id]]);
 	}
 
+	public function shapeButtons(){
 		$semantic=$this->jquery->semantic();
 		$div=$semantic->htmlDivider("");
 		echo $div->setIgnored();
