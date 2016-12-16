@@ -101,10 +101,6 @@ body{
 .navbar-brand{
 		font-family: 'Harabara' !important;
 }
-.ajax-loader{
-	margin: auto;
-	width: 100px;
-}
 
 .bs-docs-header {
     box-sizing: border-box;
@@ -235,6 +231,7 @@ header {
 	display:block;
 	margin: 97px auto;
 	width:107px;
+	width: 100px;
 }
 	
 .ajax-loader, .ajax-loader * {
@@ -400,7 +397,6 @@ header {
     -ms-user-select: none;
     user-select: none;
 }
-.octicon-link:before { content: '\f05c'; }
 
 .anchor {
     position: absolute;

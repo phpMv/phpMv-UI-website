@@ -90,7 +90,7 @@ class SemanticGui extends BaseGUI {
 		$ddFramework=new HtmlDropdown("ddfw");
 		$frameworks=\Framework::find();
 		$ddFramework->fromDatabaseObjects($frameworks, function($fw) use ($ddFramework){
-			$item=new HtmlDropdownItem("",$fw->getName(),$fw->getId(),$this->controller->url->get($fw->getImage()));
+			$item=new HtmlDropdownItem("ddfw-item-".$fw->getId(),$fw->getName(),$fw->getId(),$this->controller->url->get($fw->getImage()));
 			return $item;
 		});
 		$ddFramework->asSelect("fw");

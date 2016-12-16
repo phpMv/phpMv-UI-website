@@ -1,5 +1,6 @@
 <?php
 use Phalcon\Mvc\View;
+use Ajax\semantic\components\Form;
 class TestController extends ControllerBase {
 
 	public function indexAction() {
@@ -54,5 +55,10 @@ class TestController extends ControllerBase {
 	}
 
 	public function testAction(){
+
+		$form=new Form($this->jquery);
+		$form->attach("#frm");
+		$form->addFieldRule("name", "empty");
+		echo $form->getScript();
 	}
 }

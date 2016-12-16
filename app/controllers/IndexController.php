@@ -53,7 +53,7 @@ class IndexController extends ControllerBase {
 		$expr[]=$this->translateEngine->translate(1, "index.header", "jQuery, jQuery UI, Twitter Bootstrap and Semantic-UI library for php & php MVC Frameworks");
 		$expr[]=$this->translateEngine->translate(2, "index.header", "A php® library for generating scripts or rich components (Twitter Bootstrap, jQueryUI, Semantic-UI) on server side.");
 		$expr[]=$this->translateEngine->translate(1, "index.download", "Download");
-		$expr[]=$this->translateEngine->translate(1, "index.install", "<p>Or</p><h3 class='ui header'>Install with Composer</h3><p>Create the file composer.json</p>");
+		$expr[]=$this->translateEngine->translate(1, "index.install", "<p>Or</p><h2 class='ui header'>Install with Composer</h2><p>Create the file composer.json</p>");
 		$expr[]=$this->translateEngine->translate(2, "index.install", "Enter in the console");
 
 		$bt=$this->jquery->semantic()->htmlButton("bt-download", $expr[2])->asLink("https://github.com/phpMv/phpMv-UI/archive/2.0.zip");

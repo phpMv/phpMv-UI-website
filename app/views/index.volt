@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html language="{{ lang }}">
+<html lang="{{ lang }}">
 <head>
 <title>phpMv-UI toolkit</title>
 <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="php, jquery, ui, library, framework, semantic-ui, bootstrap">
 <meta name="description" content="{{ expr[1] }}">
-<link rel="icon" type="image/x-icon" href="{{ url('public/img/favicon.ico') }}" />
+<link rel="icon" type="image/png" href="{{ url('public/img/favicon.png') }}" />
 {{stylesheet_link("https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css")}}
 {{stylesheet_link("css/styles.css")}}
 {{stylesheet_link("https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism-okaidia.min.css")}}

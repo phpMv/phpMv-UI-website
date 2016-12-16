@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html language="{{ lang }}">
+<html lang="{{ lang }}">
 <head>
 <title>Bootstrap | phpMv-UI toolkit</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/x-icon" href="{{ url('public/img/favicon.ico') }}" />
+<link rel="icon" type="image/png" href="{{ url('public/img/favicon.png') }}" />
 {{ stylesheet_link("css/bootstrap.min.css") }} {{stylesheet_link("css/styles.css")}}
 {{stylesheet_link("https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism-okaidia.min.css")}}
 </head>
