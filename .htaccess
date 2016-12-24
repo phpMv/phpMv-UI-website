@@ -35,7 +35,7 @@
 </IfModule>
 
 <IfModule mod_headers.c>
-	Header set Content-Security-Policy "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://ajax.googleapis.com"
+	Header set Content-Security-Policy "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://ajax.googleapis.com http://static-phpmv-ui.kobject.net"
 	Header always set X-FRAME-OPTIONS "DENY"
 	Header always set X-XSS-Protection "1; mode=block"
 	Header always set X-Content-Type-Options "nosniff"

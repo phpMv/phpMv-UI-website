@@ -56,9 +56,9 @@ class IndexController extends ControllerBase {
 		$expr[]=$this->translateEngine->translate(1, "index.install", "<p>Or</p><h2 class='ui header'>Install with Composer</h2><p>Create the file composer.json</p>");
 		$expr[]=$this->translateEngine->translate(2, "index.install", "Enter in the console");
 
-		$bt=$this->jquery->semantic()->htmlButton("bt-download", $expr[2])->asLink("https://github.com/phpMv/phpMv-UI/archive/2.0.zip");
+		$bt=$this->jquery->semantic()->htmlButton("bt-download", $expr[2])->asLink("https://github.com/phpMv/phpMv-UI/archive/2.1.zip");
 		$bt->addIcon("download");
-		$bt->addLabel("Phpmv-UI Adhika v2.0")->asLink("https://github.com/phpMv/phpMv-UI/archive/2.0.zip")->setPointing("left");
+		$bt->addLabel("Phpmv-UI Adhika v2.1")->asLink("https://github.com/phpMv/phpMv-UI/archive/2.1.zip")->setPointing("left");
 
 		$this->jquery->compile($this->view);
 		$this->view->setVars(array ("expr" => $expr,"lang" => $this->translateEngine->getLanguage(),"hasScript" => $hasScript ));

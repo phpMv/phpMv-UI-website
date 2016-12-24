@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="php, jquery, ui, library, framework, semantic-ui, bootstrap">
 <meta name="description" content="{{ expr[1] }}">
-<link rel="icon" type="image/png" href="{{ url('public/img/favicon.png') }}" />
+<link rel="icon" type="image/png" href="http://static-phpmv-ui.kobject.net/img/favicon.png" />
 {{stylesheet_link("https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css")}}
-{{stylesheet_link("css/styles.css")}}
+{{stylesheet_link("http://static-phpmv-ui.kobject.net/css/styles.css")}}
 {{stylesheet_link("https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism-okaidia.min.css")}}
 </head>
 <body>
@@ -73,6 +73,6 @@
 	{{ script_foot }}
 	{{javascript_include("https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js")}}
 	{{javascript_include("https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/components/prism-php.min.js")}}
-	{{javascript_include("js/lib/jquery.tablesort.min.js")}}
+	{{javascript_include("http://static-phpmv-ui.kobject.net/js/lib/jquery.tablesort.min.js")}}
 </body>
 </html>
